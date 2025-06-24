@@ -14,25 +14,34 @@ if (isset($_POST['register'])) {
     $reg_username = $_POST['reg_username'] ?? '';
     $reg_email = $_POST['reg_email'] ?? '';
     $reg_password = $_POST['reg_password'] ?? '';
+    $reg_telefono = $_POST['reg_telefono'] ?? '';
+    $reg_fecha_nacimiento = $_POST['reg_fecha_nacimiento'] ?? '';
     
     if (!empty($reg_username) && !empty($reg_email) && !empty($reg_password)) {
         // Verificar si el usuario ya existe (vulnerable)
         $check_query = "SELECT * FROM usuarios WHERE username = '$reg_username' OR email = '$reg_email'";
-        echo "<!-- DEBUG Check User Query: $check_query -->";
         $usuario_existe = obtenerDatos($check_query);
         
         if (empty($usuario_existe)) {
-            // Insertar nuevo usuario (VULNERABLE - sin hash de contraseña)
-            $insert_query = "INSERT INTO usuarios (username, email, password, rol) VALUES ('$reg_username', '$reg_email', '$reg_password', 'usuario')";
-            echo "<!-- DEBUG Insert Query: $insert_query -->";
+            // Hashear contraseña con MD5
+            $password_md5 = md5($reg_password);
             
-            if (ejecutarConsulta($insert_query)) {
+            // Insertar nuevo usuario (VULNERABLE - inyección SQL posible)
+            $insert_query = "INSERT INTO usuarios (username, email, password, telefono, fecha_nacimiento, rol) VALUES ('$reg_username', '$reg_email', '$password_md5', '$reg_telefono', '$reg_fecha_nacimiento', 'usuario')";
+            
+            $resultado = ejecutarConsulta($insert_query);
+            
+            if ($resultado) {
                 $mensaje = "Usuario registrado exitosamente. Ahora puedes iniciar sesión.";
                 $tipo_mensaje = 'success';
                 
+                // Obtener el ID del usuario recién insertado
+                global $conn;
+                $nuevo_usuario_id = $conn->insert_id;
+                
                 // Registrar actividad
                 $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-                $log_query = "INSERT INTO logs_actividad (usuario_id, accion, ip_origen) VALUES (LAST_INSERT_ID(), 'Registro exitoso', '$ip')";
+                $log_query = "INSERT INTO logs_actividad (usuario_id, accion, ip_origen) VALUES ('$nuevo_usuario_id', 'Registro exitoso', '$ip')";
                 ejecutarConsulta($log_query);
                 
                 // Redireccionar después de 2 segundos
@@ -46,7 +55,7 @@ if (isset($_POST['register'])) {
             $tipo_mensaje = 'error';
         }
     } else {
-        $mensaje = "Todos los campos son obligatorios";
+        $mensaje = "Los campos usuario, email y contraseña son obligatorios";
         $tipo_mensaje = 'error';
     }
 }
@@ -93,6 +102,22 @@ if (isset($_POST['register'])) {
                            placeholder="Ingresa una contraseña">
                 </div>
                 
+                <div class="input-group">
+                    <label for="reg_telefono">Teléfono:</label>
+                    <input type="tel" 
+                           id="reg_telefono"
+                           name="reg_telefono" 
+                           placeholder="0987654321 (opcional)">
+                </div>
+                
+                <div class="input-group">
+                    <label for="reg_fecha_nacimiento">Fecha de Nacimiento:</label>
+                    <input type="date" 
+                           id="reg_fecha_nacimiento"
+                           name="reg_fecha_nacimiento" 
+                           placeholder="Opcional">
+                </div>
+                
                 <button type="submit" name="register" class="btn-auth btn-register">
                     Registrarse
                 </button>
@@ -114,7 +139,7 @@ if (isset($_POST['register'])) {
                         <li>Inyección SQL en campos de entrada</li>
                         <li>Sin validación de formato de email</li>
                         <li>Sin sanitización de datos</li>
-                        <li>Contraseñas almacenadas en texto plano</li>
+                        <li>Contraseñas con hash MD5 (débil)</li>
                         <li>Sin verificación de email</li>
                         <li>Sin validación de longitud de contraseña</li>
                     </ul>
@@ -122,10 +147,10 @@ if (isset($_POST['register'])) {
                 <div class="vuln-section">
                     <h4>🎯 Ejemplos de Payload para Registro:</h4>
                     <ul>
-                        <li><code>'; INSERT INTO usuarios (username, rol) VALUES ('hacker', 'administrador')-- </code></li>
-                        <li><code>' UNION SELECT * FROM usuarios-- </code></li>
+                        <li><code>hacker'; INSERT INTO usuarios (username, rol) VALUES ('admin2', 'administrador')-- </code></li>
+                        <li><code>test' UNION SELECT username,email,password,rol FROM usuarios-- </code></li>
                         <li><code>admin'; UPDATE usuarios SET rol='administrador' WHERE username='admin'-- </code></li>
-                        <li><code>'; DROP TABLE logs_actividad-- </code></li>
+                        <li><code>evil'; DROP TABLE logs_actividad-- </code></li>
                     </ul>
                 </div>
             </div>

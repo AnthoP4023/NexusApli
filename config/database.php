@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";  
 $password = "";     
-$dbname = "nexusplay_db";
+$dbname = "nexusplay_db4";
 
 // Crear conexión mysqli (INTENCIONALMENTE VULNERABLE)
 $conn = new mysqli($servername, $username, $password, $dbname);

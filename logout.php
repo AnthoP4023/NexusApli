@@ -1,5 +1,14 @@
 <?php
 session_start();
+require_once 'config/database.php';
+
+// Registrar actividad de logout si hay usuario logueado
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
+    $log_query = "INSERT INTO logs_actividad (usuario_id, accion, ip_origen) VALUES ('$user_id', 'Logout exitoso', '$ip')";
+    ejecutarConsulta($log_query);
+}
 
 // Destruir todas las variables de sesión
 $_SESSION = array();

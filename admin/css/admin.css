@@ -1,0 +1,417 @@
+/* admin/css/admin.css - Estilos específicos del panel de administración */
+
+/* Login del admin */
+.admin-login-body {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-login-container {
+    max-width: 450px;
+    width: 100%;
+    padding: 20px;
+}
+
+.admin-login-card {
+    background: linear-gradient(135deg, #2d2d2d, #404040);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border: 2px solid #ff6b35;
+    text-align: center;
+}
+
+.admin-logo {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 40px;
+    color: white;
+    box-shadow: 0 5px 20px rgba(255, 107, 53, 0.4);
+}
+
+.admin-title {
+    color: #ff6b35;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.admin-subtitle {
+    color: #ccc;
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.security-notice {
+    background: rgba(255, 107, 53, 0.1);
+    border: 1px solid #ff6b35;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 30px;
+    color: #ff6b35;
+    font-size: 14px;
+}
+
+.back-link {
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Panel principal con sidebar */
+.admin-panel {
+    display: flex;
+    min-height: 100vh;
+    background: #1a1a1a;
+}
+
+/* Sidebar izquierda */
+.admin-sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #2d2d2d, #1a1a1a);
+    border-right: 2px solid #ff6b35;
+    padding: 20px 0;
+    position: fixed;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid #404040;
+    margin-bottom: 20px;
+}
+
+.sidebar-logo {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 30px;
+    color: white;
+}
+
+.sidebar-title {
+    color: #ff6b35;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.sidebar-user {
+    color: #ccc;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Navegación del sidebar */
+.sidebar-nav {
+    padding: 0 10px;
+}
+
+.nav-item {
+    margin-bottom: 5px;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: #ccc;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: rgba(255, 107, 53, 0.1);
+    color: #ff6b35;
+    transform: translateX(5px);
+}
+
+.nav-link.active {
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.nav-icon {
+    margin-right: 12px;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+/* Contenido principal */
+.admin-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 30px;
+    background: #1a1a1a;
+    min-height: 100vh;
+}
+
+.content-header {
+    background: linear-gradient(135deg, #2d2d2d, #404040);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    border: 1px solid #555;
+}
+
+.content-title {
+    color: #ff6b35;
+    font-size: 28px;
+    margin: 0 0 10px 0;
+    font-weight: bold;
+}
+
+.content-subtitle {
+    color: #ccc;
+    margin: 0;
+    font-size: 16px;
+}
+
+/* Cards del dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.dashboard-card {
+    background: linear-gradient(135deg, #2d2d2d, #363636);
+    padding: 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 1px solid #555;
+    transition: all 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    border-color: #ff6b35;
+}
+
+.card-icon {
+    font-size: 40px;
+    margin-right: 20px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    border-radius: 50%;
+    color: white;
+}
+
+.card-info {
+    flex: 1;
+}
+
+.card-number {
+    font-size: 28px;
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 5px;
+}
+
+.card-label {
+    color: #ccc;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* Tablas */
+.data-table {
+    background: #2d2d2d;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 1px solid #555;
+    margin-bottom: 30px;
+}
+
+.table-header {
+    background: linear-gradient(135deg, #404040, #4a4a4a);
+    padding: 20px;
+    border-bottom: 1px solid #555;
+}
+
+.table-title {
+    color: #ff6b35;
+    font-size: 20px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.table-content {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #404040;
+    color: #ff6b35;
+    padding: 15px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    padding: 15px;
+    border-bottom: 1px solid #404040;
+    color: #ccc;
+    font-size: 14px;
+}
+
+tr:hover {
+    background: #363636;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Formularios en el panel */
+.admin-form {
+    background: #2d2d2d;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    border: 1px solid #555;
+    margin-bottom: 30px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #ff6b35;
+    font-weight: bold;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #404040;
+    border-radius: 8px;
+    background: #404040;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #ff6b35;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 107, 53, 0.3);
+}
+
+.btn-admin {
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.btn-admin:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+    
+    .admin-content {
+        margin-left: 0;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar-nav {
+        display: flex;
+        overflow-x: auto;
+        padding: 10px;
+    }
+    
+    .nav-item {
+        flex: 0 0 auto;
+        margin-right: 10px;
+    }
+}

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $page_title = "Búsqueda - Nexus Play";
 $hide_search = true; // Ocultar buscador del header en esta página
 require_once 'config/database.php';
@@ -9,22 +10,19 @@ $search_term = isset($_GET['q']) ? $_GET['q'] : '';
 
 $resultados_juegos = [];
 $resultados_noticias = [];
-$error_sql = '';
 
 if (!empty($search_term)) {
-
+    // Query vulnerable para juegos
     $query_juegos = "SELECT titulo, descripcion, genero, id, precio FROM videojuegos WHERE titulo LIKE '%$search_term%' OR descripcion LIKE '%$search_term%' OR genero LIKE '%$search_term%'";
-
-    echo "<!-- DEBUG Query Juegos: $query_juegos -->";
     $resultados_juegos = obtenerDatos($query_juegos);
     
+    // Query vulnerable para noticias
     $query_noticias = "
         SELECT n.titulo, n.contenido, u.username AS autor, n.id, n.fecha_publicacion
         FROM noticias n 
         LEFT JOIN usuarios u ON n.autor_id = u.id 
         WHERE n.titulo LIKE '%$search_term%' OR n.contenido LIKE '%$search_term%'
     ";
-    echo "<!-- DEBUG Query Noticias: $query_noticias -->";
     $resultados_noticias = obtenerDatos($query_noticias);
 }
 
@@ -84,10 +82,10 @@ $imagenes_noticias = [
                             </div>
                             <div class="game-info">
                                 <h3 class="game-title"><?php echo htmlspecialchars($juego['titulo']); ?></h3>
-                                <p class="game-genre"><?php echo htmlspecialchars($juego['genero']); ?></p>
-                                <p class="game-price">$<?php echo number_format($juego['precio'], 2); ?></p>
+                                <p class="game-genre"><?php echo htmlspecialchars($juego['genero'] ?? ''); ?></p>
+                                <p class="game-price">$<?php echo number_format($juego['precio'] ?? 0, 2); ?></p>
                                 <p style="color: #ccc; font-size: 14px; margin-top: 8px;">
-                                    <?php echo substr(htmlspecialchars($juego['descripcion']), 0, 100) . '...'; ?>
+                                    <?php echo substr(htmlspecialchars($juego['descripcion'] ?? ''), 0, 100) . '...'; ?>
                                 </p>
                                 <div class="game-buttons">
                                     <a href="games.php?id=<?php echo $juego['id']; ?>" class="btn btn-details">Ver Detalles</a>

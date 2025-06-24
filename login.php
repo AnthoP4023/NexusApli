@@ -28,7 +28,7 @@ if (isset($_POST['login'])) {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
-    if (!empty($username)) {
+    if (!empty($username) && !empty($password)) {
         // HASHEAR LA CONTRASEÑA CON MD5 PARA COMPARAR
         $password_md5 = md5($password);
         
@@ -60,9 +60,12 @@ if (isset($_POST['login'])) {
         } else {
             $mensaje = "Credenciales incorrectas";
             $tipo_mensaje = 'error';
+            
+            // Debug: mostrar la consulta para ver qué está pasando
+            echo "<!-- DEBUG: Query ejecutada: $query -->";
         }
     } else {
-        $mensaje = "El usuario es obligatorio";
+        $mensaje = "El usuario y contraseña son obligatorios";
         $tipo_mensaje = 'error';
     }
 }

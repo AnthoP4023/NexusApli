@@ -39,7 +39,7 @@ if (session_status() == PHP_SESSION_NONE) {
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <!-- Usuario logueado -->
                     <?php if ($_SESSION['rol'] === 'administrador'): ?>
-                        <a href="admin.php" class="icon-link" title="Admin">👤</a>
+                        <a href="perfil.php" class="icon-link" title="Admin">👤</a>
                     <?php endif; ?>
                     <a href="login.php?logout=1" class="icon-link" title="Cerrar Sesión">🚪</a>
                 <?php else: ?>
