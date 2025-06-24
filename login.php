@@ -29,9 +29,11 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'] ?? '';
     
     if (!empty($username)) {
-        // CONSULTA VULNERABLE - Sin prepared statements y sin hash de contraseña
-        $query = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password'";
-        echo "<!-- DEBUG Login Query: $query -->";
+        // HASHEAR LA CONTRASEÑA CON MD5 PARA COMPARAR
+        $password_md5 = md5($password);
+        
+        // CONSULTA VULNERABLE - Sin prepared statements pero con MD5
+        $query = "SELECT * FROM usuarios WHERE username = '$username' AND password = '$password_md5'";
         
         $resultado = obtenerDatos($query);
         
@@ -105,6 +107,7 @@ if (isset($_POST['login'])) {
                 <p>¿No tienes cuenta?</p>
                 <a href="register.php" class="btn-link">Crear Cuenta</a>
             </div>
+        </div>
     </div>
 </main>
 
